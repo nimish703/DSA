@@ -1,0 +1,282 @@
+a.	Bubble
+#include <stdio.h>
+
+#define MAX_SIZE 100 // Maximum size of the array
+
+// Function to sort an array using bubble sort
+void bubbleSort(int array[], int size) {
+    for (int i = 0; i < size - 1; i++) {
+        // Flag to track if any swaps were made in the current pass
+        int swapped = 0;
+
+        // Compare adjacent elements and swap them if they are in the wrong order
+        for (int j = 0; j < size - i - 1; j++) {
+            if (array[j] > array[j + 1]) {
+                // Swap the elements
+                int temp = array[j];
+                array[j] = array[j + 1];
+                array[j + 1] = temp;
+                swapped = 1;
+            }
+        }
+
+        // If no swaps were made, the array is already sorted
+        if (!swapped) {
+            break;
+        }
+    }
+}
+
+int main() {
+    int size;
+    
+    // Input size of the array
+    printf("Enter the size of the array: ");
+    scanf("%d", &size);
+
+    int array[MAX_SIZE];
+
+    // Input elements of the array
+    printf("Enter the elements of the array: ");
+    for (int i = 0; i < size; i++) {
+        scanf("%d", &array[i]);
+    }
+
+    // Sort the array using bubble sort
+    bubbleSort(array, size);
+
+    // Output the sorted array
+    printf("Sorted array: ");
+    for (int i = 0; i < size; i++) {
+        printf("%d ", array[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+
+
+b.	Selection
+
+#include <stdio.h>
+
+#define MAX_SIZE 100 // Maximum size of the array
+
+// Function to sort an array using selection sort
+void selectionSort(int array[], int size) {
+    for (int i = 0; i < size - 1; i++) {
+        // Find the minimum element in the unsorted portion of the array
+        int minIndex = i;
+        for (int j = i + 1; j < size; j++) {
+            if (array[j] < array[minIndex]) {
+                minIndex = j;
+            }
+        }
+        // Swap the minimum element with the first element of the unsorted portion
+        int temp = array[i];
+        array[i] = array[minIndex];
+        array[minIndex] = temp;
+    }
+}
+
+int main() {
+    int size;
+
+    // Input the size of the array
+    printf("Enter the size of the array: ");
+    scanf("%d", &size);
+
+    int array[MAX_SIZE];
+
+    // Input the elements of the array
+    printf("Enter the elements of the array: ");
+    for (int i = 0; i < size; i++) {
+        scanf("%d", &array[i]);
+    }
+
+    // Sort the array using selection sort
+    selectionSort(array, size);
+
+    // Output the sorted array
+    printf("Sorted array:");
+    for (int i = 0; i < size; i++) {
+        printf(" %d", array[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+
+
+c.	Insertion
+#include <stdio.h>
+
+#define MAX_SIZE 100 // Maximum size of the array
+
+// Function to sort an array using insertion sort
+void insertionSort(int array[], int size) {
+    for (int i = 1; i < size; i++) {
+        // Select the element to insert
+        int key = array[i];
+        // Shift elements to make room for the key
+        int j = i - 1;
+        while (j >= 0 && array[j] > key) {
+            array[j + 1] = array[j];
+            j--;
+        }
+        // Insert the key
+        array[j + 1] = key;
+    }
+}
+
+int main() {
+    int size;
+
+    // Input the size of the array
+    printf("Enter the size of the array: ");
+    scanf("%d", &size);
+
+    int array[MAX_SIZE];
+
+    // Input the elements of the array
+    printf("Enter the elements of the array: ");
+    for (int i = 0; i < size; i++) {
+        scanf("%d", &array[i]);
+    }
+
+    // Sort the array using insertion sort
+    insertionSort(array, size);
+
+    // Output the sorted array
+    printf("Sorted array:");
+    for (int i = 0; i < size; i++) {
+        printf(" %d", array[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+
+
+d.	Quick
+#include <stdio.h>
+
+// Function to swap two elements
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+// Function to rearrange the elements around the pivot and return the pivot index
+int partition(int arr[], int low, int high, int pivot) {
+    int PIndex = low;
+
+    // Traverse the array from low to high
+    for (int i = low; i <= high; i++) {
+        // If the current element is smaller than or equal to the pivot element
+        if (arr[i] <= pivot) {
+            // Swap PIndex element with the current element
+            swap(&arr[PIndex], &arr[i]);
+            // Increment the pointer
+            PIndex++;
+        }
+    }
+
+    PIndex--;
+    return PIndex;
+}
+
+// Function to sort the array using quicksort
+void quickSort(int arr[], int low, int high) {
+    if (low < high) {
+        // Choose the pivot as the last element
+        int pivot = arr[high];
+
+        // Rearrange and get the actual pivot index
+        int PIndex = partition(arr, low, high, pivot);
+
+        // Solve for the left and right subarrays
+        quickSort(arr, low, PIndex - 1);
+        quickSort(arr, PIndex + 1, high);
+    }
+}
+
+int main() {
+    int arr[7] = {6, 3, 9, 5, 2, 8, 7};
+    int n = 7;
+
+    // Call quicksort on the entire array
+    quickSort(arr, 0, n - 1);
+
+    // Output the sorted array
+    printf("The sorted array is: ");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+
+
+d.	Quick
+#include <stdio.h>
+
+// Function to swap two elements
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+// Function to rearrange the elements around the pivot and return the pivot index
+int partition(int arr[], int low, int high, int pivot) {
+    int PIndex = low;
+
+    // Traverse the array from low to high
+    for (int i = low; i <= high; i++) {
+        // If the current element is smaller than or equal to the pivot element
+        if (arr[i] <= pivot) {
+            // Swap PIndex element with the current element
+            swap(&arr[PIndex], &arr[i]);
+            // Increment the pointer
+            PIndex++;
+        }
+    }
+
+    PIndex--;
+    return PIndex;
+}
+
+// Function to sort the array using quicksort
+void quickSort(int arr[], int low, int high) {
+    if (low < high) {
+        // Choose the pivot as the last element
+        int pivot = arr[high];
+
+        // Rearrange and get the actual pivot index
+        int PIndex = partition(arr, low, high, pivot);
+
+        // Solve for the left and right subarrays
+        quickSort(arr, low, PIndex - 1);
+        quickSort(arr, PIndex + 1, high);
+    }
+}
+
+int main() {
+    int arr[7] = {6, 3, 9, 5, 2, 8, 7};
+    int n = 7;
+
+    // Call quicksort on the entire array
+    quickSort(arr, 0, n - 1);
+
+    // Output the sorted array
+    printf("The sorted array is: ");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
